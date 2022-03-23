@@ -1,0 +1,32 @@
+
+
+if(!require("seqinr")){
+  install.packages("seqinr", dependencies = TRUE)
+  library("seqinr")
+}
+if(!require("stringr")){
+  install.packages("stringr", dependencies = TRUE)
+  library("stringr")
+}
+
+path <- "//srvnas/svs/CGLAB/1200_Genomas_piloto/analises/MG/2022-01-20"
+dataConsensus <- "2022-01-20"
+setwd(path)
+
+listFiles <- list.files(path = path, pattern = "*.fasta")
+
+#l? e junta os arquivos fasta
+myFasta <- list()
+namesFasta <- c()
+for (i in 1:length(listFiles)){
+  tempFasta <- read.fasta(listFiles[i], forceDNAtolower = FALSE)
+  myFasta[[i]] <- tempFasta[[2]]
+  namesFasta <- c(namesFasta, names(tempFasta)[2])
+}
+
+listFiles <- str_replace_all(listFiles, '.fasta', '')
+listFiles <- str_replace_all(listFiles, "_nt-alignment", "")
+
+write.fasta(sequences = myFasta,
+            names = listFiles, 
+            file.out = paste0(dataConsensus,"_consensus.fasta"))
