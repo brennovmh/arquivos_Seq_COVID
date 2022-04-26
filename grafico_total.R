@@ -20,11 +20,12 @@ View(results)
 
 #Plot com ggplot 
 
-ggplot(results, aes(fill = Linhagens, x = Data, y = proporcao)) +
+ggplot(results, aes(fill = Linhagens, x = Data, y = as.numeric(proporcao))) +
   geom_bar(position = "stack", stat = "identity") + theme_classic() +
   ylab("Proporção das Linhagens\n") + xlab("Data de Coleta")+ 
   theme(text = element_text(size = 15)) +
-  scale_fill_brewer(palette = "YlGnBu") -> graph
+  scale_fill_brewer(palette = "Blues") +
+  scale_y_continuous(expand = c(0,0)) + expand_limits(y=c(0.0,1.0))-> graph
 
 #Salvando gráfico no diretório atual 
 
