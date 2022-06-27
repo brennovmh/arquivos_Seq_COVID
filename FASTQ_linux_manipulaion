@@ -1,0 +1,5 @@
+for dir in */; do
+    cd "$dir"
+    cp -R 0* /mnt/c/Users/16772768/Documents/MiSeq_21_06_22/FASTQ_MiSeq_21_06/teste
+    cd ..
+done
